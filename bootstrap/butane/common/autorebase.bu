@@ -1,0 +1,51 @@
+variant: fcos
+version: 1.6.0
+
+storage:
+  directories:
+    - path: /etc/eepy-autorebase
+      mode: 0754
+
+systemd:
+  units:
+    - name: eepy-unsigned-autorebase.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=eepy_OS autorebase to unsigned OCI and reboot
+        ConditionPathExists=!/etc/eepy-autorebase/unverified
+        ConditionPathExists=!/etc/eepy-autorebase/signed
+        After=network-online.target
+        Wants=network-online.target
+
+        [Service]
+        Type=oneshot
+        StandardOutput=journal+console
+        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-unverified-registry:ghcr.io/nospawnn/eepy_os:latest
+        ExecStart=/usr/bin/touch /etc/eepy-autorebase/unverified
+        ExecStart=/usr/bin/systemctl disable eepy-unsigned-autorebase.service
+        ExecStart=/usr/bin/systemctl reboot
+
+        [Install]
+        WantedBy=multi-user.target
+
+    - name: eepy-signed-autorebase.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=eepy_OS autorebase to signed OCI and reboot
+        ConditionPathExists=/etc/eepy-autorebase/unverified
+        ConditionPathExists=!/etc/eepy-autorebase/signed
+        After=network-online.target
+        Wants=network-online.target
+
+        [Service]
+        Type=oneshot
+        StandardOutput=journal+console
+        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/nospawnn/eepy_os:latest
+        ExecStart=/usr/bin/touch /etc/eepy-autorebase/signed
+        ExecStart=/usr/bin/systemctl disable eepy-signed-autorebase.service
+        ExecStart=/usr/bin/systemctl reboot
+
+        [Install]
+        WantedBy=multi-user.target

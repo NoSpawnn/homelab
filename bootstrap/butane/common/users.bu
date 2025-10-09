@@ -1,0 +1,17 @@
+variant: fcos
+version: 1.6.0
+
+passwd:
+  users:
+    - name: root
+      shell: /bin/bash
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ
+
+    - name: core
+      password_hash: $y$j9T$usXF3bfhUcsX3RxKTcBvy/$iB2v.ZD/4cyeNCgpT3sABDJ85c.NsCs1Aig4iVHyJO4
+      shell: /bin/bash
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ
+      groups:
+        - wheel
