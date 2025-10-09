@@ -2,8 +2,8 @@
 
 ## Technologies
 
-- [NoSpawnn/eepy_os](https://github.com/NoSpawnn/eepy_os)
-- [Ignition](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/)/[Butane](https://coreos.github.io/butane/)
+- [NoSpawnn/eepy_os](https://github.com/NoSpawnn/eepy_os) (customized Fedora CoreOS based OS)
+- [Ignition](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/) (and [Butane](https://coreos.github.io/butane/)) for bootstrapping of hosts
 
 ## References/inspiration/docs/etc
 
