@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflared
+spec:
+  project: default
+  source:
+    path: deploy/manifests/infra/cloudflared
+  destination:
+    name: "in-cluster"
+    namespace: infra-tunnel
