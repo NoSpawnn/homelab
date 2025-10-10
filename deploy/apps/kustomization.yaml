@@ -5,6 +5,8 @@ resources:
   - infra/
   - services/
 
+namespace: argocd
+
 patches:
   # Set repo, auto sync, and auto-create namespace
   - patch: |
