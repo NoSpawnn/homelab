@@ -4,6 +4,7 @@
 
 - [NoSpawnn/eepy_os](https://github.com/NoSpawnn/eepy_os) (customized Fedora CoreOS based OS)
 - [Ignition](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/) (and [Butane](https://coreos.github.io/butane/)) for bootstrapping of hosts
+- [Age](https://github.com/FiloSottile/age)/[SOPS](https://github.com/getsops/sops)/[KSOPS](https://github.com/viaduct-ai/kustomize-sops) for encryption of secrets
 
 ## References/inspiration/docs/etc
 
