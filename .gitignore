@@ -1,2 +1,4 @@
 *.ign
-fedora-coreos-*
+*.iso
+*.qcow2
+charts/
