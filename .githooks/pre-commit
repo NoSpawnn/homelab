@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# git config --local core.hooksPath .githooks
+
+set -e
+
+# Encrypt '# SECRET' commented values with sops before committing them (then decrypt them, "transparent" encryption!)
+SECRET_COMMENT="# SECRET"
+files=$(git diff --cached --name-only | grep -P '^(?!.*\.sops\.yaml$).*\.(yaml|bu)$' | xargs grep -l "$SECRET_COMMENT" || true)
+for f in "${files[@]}"; do
+    [ -f "$f" ] || continue
+    sops -i -e "$f"
+    git add "$f"
+    sops -i -d "$f"
+done
