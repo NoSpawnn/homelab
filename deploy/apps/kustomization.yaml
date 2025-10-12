@@ -11,9 +11,6 @@ patches:
   # Set repo, auto sync, and auto-create namespace
   - patch: |
       - op: replace
-        path: /spec/source/repoURL
-        value: https://github.com/nospawnn/homelab.git
-      - op: replace
         path: /spec/syncPolicy
         value:
           automated: {}

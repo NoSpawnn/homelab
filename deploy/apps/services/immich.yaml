@@ -10,9 +10,11 @@ spec:
       targetRevision: 0.10.0
       helm:
         valueFiles:
-          - $homelab-repo/deploy/manifests/services/immich/values.yaml
+          - $values/deploy/manifests/services/immich/values.yaml
+    - repoURL: https://github.com/nospawnn/homelab.git
+      ref: values
     - repoURL: https://github.com/nospawnn/homelab.git
       path: deploy/manifests/services/immich
   destination:
     name: "in-cluster"
-    namespace: services-immich
+    namespace: immich
