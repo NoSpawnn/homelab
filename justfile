@@ -22,8 +22,8 @@ ignite HOST="" BUTANE_DIR="./bootstrap/butane" IGNITION_DIR="./bootstrap/ignitio
       localhost/$tag \
       /bin/bash -c 'for f in $(find /butane/common -name "*.bu"); do
           ign_file=$(echo "$f" | sed -r "s|.*/(.*)\.bu|/ignition/common/\1.ign|");
-          butane --strict "$f" > "$ign_file";
-      done && butane --files-dir /ignition /butane/hosts/$HOST.bu > /ignition/hosts/$HOST.ign'
+          butane --strict "$f" --files-dir /ignition --strict --pretty > "$ign_file";
+      done && butane --files-dir /ignition --strict --pretty /butane/hosts/$HOST.bu > /ignition/hosts/$HOST.ign'
 
 validate-ignition HOST="": (ignite HOST)
     podman run --pull=always --rm -i quay.io/coreos/ignition-validate:release - < "./bootstrap/ignition/hosts/{{ HOST }}.ign"
