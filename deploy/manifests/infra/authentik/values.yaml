@@ -1,1 +1,45 @@
 # https://github.com/goauthentik/helm/blob/main/charts/authentik/values.yaml
+authentik:
+  # SECRET
+  secret_key: ENC[AES256_GCM,data:F3mYn7vl06+IIlCwE0HaMKHmeKpbfTBmEXVV2VLo5tvrnxNAGZqOwMnU72tKyjiRkxwAYP8g5QRKM/2UZCafUYTuqxM0rVZkZuBI8XI7vos=,iv:oZo+mTYS/HwGAkl8FuSQcSSMBNN7g5MtdCaqNaNbRu0=,tag:AfBasW2rg/P1OJ2GAhKTDw==,type:str]
+  error_reporting:
+    enabled: true
+  postgresql:
+    # SECRET
+    password: ENC[AES256_GCM,data:NzqMwReLO0CmWi2VsgS/QhhRh6iUrnKURmSasgkjat10H/iqo1/9KyK7rQy0Ix105oPYsbegNY7uIXqxO+bhvtmnkWjBOS2Qb3YzuLDzYO8=,iv:JvyJ5tjBtRBbWABOlnZ/PLqURiWHUbKwu5GAWY7wJ6I=,tag:9UIkKGXjEWryK8Z+FpWyOQ==,type:str]
+server:
+  ingress:
+    enabled: true
+    hosts:
+      - authentik.domain.tld
+postgresql:
+  enabled: true
+  auth:
+    # SECRET
+    password: ENC[AES256_GCM,data:1+gUVbN8MjrrMZWg4HHOFp4vwrsXMEVkuycQMky121m/ymwbq3MVpPNN6ysx7ZNA9+vEltoILArh73QOhuKfSwwMnR6ta9uGMfAulucvajg=,iv:7X/RKAbA5P9uJQHNN+t+HW6VSyO4w9+bHbmZ5bevSTg=,tag:WdXuPBvMLyIlniW06Ocv2A==,type:str]
+redis:
+  enabled: true
+sops:
+  age:
+    - recipient: age1s3cqcks5genc6ru8chl0hkkd04zmxvczsvdxq99ekffe4gmvjpzsedk23c
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA4QUtRT3N5UUZwK0trVTdi
+        cFUxdVdiUTY1YVF1QkRSTlk4RXZnNURERjJJCmVONzNpWmVEK3VGVUNaczJYaFVx
+        NlZrWkdodmIxMU4vam9yTEJLYkhxUUkKLS0tIDZ5anIrWUgzSDJPWFRwY1FiWjVR
+        SENjYnFualBOcmZYSXFUb2dHSkhPeFkKQFStPA3FZ9csoebqAOdTtNcpIKsz55Vb
+        0fu+tCHB8gOnXgae3nGZ8qeKyJtjbEGEiaw4x0YaYov3dxDgyfo3Bg==
+        -----END AGE ENCRYPTED FILE-----
+    - recipient: age1yg8cf7vv9nsfnc794ja3waxywm7ypjn5d4l3fv4seusjw79ueg0qyhe9f4
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxTHFicFRHNTNSVGhrSDRr
+        RFZkK0JIVzE3NVNrNUZJZEh1dWVHZXFXb2tRCnR2R2dZR0NSd3Z4OUtycmhIRUJ4
+        L01BL3d3aG42YUMwNHN1UnZGdDRjS0kKLS0tIHdLenBPZjdUSlNEZlhUcURzdkRF
+        N2dSbjNRRzRXRmt2V1k2WmJnMGp6SWcKwtBGvTjMN5VQFt/673nVRl9qWzYo8Wak
+        LJYhGFheu1fITPu1rAHt1R+hdsuujiVltn/KL7jrI9tGBZr5LEqv7Q==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2025-10-12T19:47:29Z"
+  mac: ENC[AES256_GCM,data:XIAy1mSn95JTgfxtCnsoDr4a6P2ma3Z9mldB40Fc72zCOKOlcv31PvRhFFkt23iSrzF0kBoXDlp1trEk5pLakfEYs4nd/LbK/mG1wyOnNtcMmiBbiFUCYIsLYQeLAJwFrTn08qCyqYKOppKX8hBf0ow4guP8NbQ0I817V4jbiWk=,iv:T3N8Dg0DwTOwZJwY6dKHOSzHezttq8ebDY0brwRW0qs=,tag:pxzqLFG89yRQmVlgKsyuGA==,type:str]
+  encrypted_comment_regex: SECRET
+  version: 3.11.0
