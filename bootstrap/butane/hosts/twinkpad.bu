@@ -7,7 +7,7 @@ ignition:
       - local: common/users.ign
       - local: common/timezone.ign
       - local: common/autorebase.ign
-      - local: common/k3s-server-init.ign
+      - local: common/k3s-cluster-init.ign
 
 storage:
   files:

@@ -1,4 +1,5 @@
-# Sets up K3s server node as the first in the cluster
+# Set up K3s control node as the first in the cluster
+
 variant: fcos
 version: 1.6.0
 
@@ -8,7 +9,7 @@ systemd:
       enabled: true
       contents: |
           [Unit]
-          Description=Install and initialise K3s cluster if not present
+          Description=Install K3s and initialise cluster
           After=network-online.target
           Wants=network-online.target
           ConditionPathExists=/etc/eepy-autorebase/signed
@@ -16,7 +17,8 @@ systemd:
 
           [Service]
           Type=oneshot
-          ExecStart=/bin/sh -c 'curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --cluster-init" sh -'
+          ExecStart=/bin/sh -c 'curl -sfL https://get.k3s.io | sh -s - server --cluster-init'
+          ExecStartPost=/bin/systemctl enable --now k3s.service
           RemainAfterExit=yes
 
           [Install]
