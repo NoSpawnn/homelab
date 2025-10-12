@@ -3,10 +3,3 @@ kind: Kustomization
 
 resources:
   - pvc.yaml
-
-helmCharts:
-  - name: immich
-    repo: oci://ghcr.io/immich-app/immich-charts
-    version: 0.10.0
-    releaseName: immich
-    valuesFile: ./values.yaml

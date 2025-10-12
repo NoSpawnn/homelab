@@ -4,8 +4,15 @@ metadata:
   name: immich
 spec:
   project: default
-  source:
-    path: deploy/manifests/services/immich
+  sources:
+    - repoURL: ghcr.io/immich-app/immich-charts
+      chart: immich
+      targetRevision: 0.10.0
+      helm:
+        valueFiles:
+          - $homelab-repo/deploy/manifests/services/immich/values.yaml
+    - repoURL: https://github.com/nospawnn/homelab.git
+      path: deploy/manifests/services/immich
   destination:
     name: "in-cluster"
     namespace: services-immich
