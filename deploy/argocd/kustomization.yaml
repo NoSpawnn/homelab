@@ -3,9 +3,11 @@ kind: Kustomization
 
 namespace: argocd
 resources:
+  - config/namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.2/manifests/install.yaml
   - config/repo.yaml
 
 patches:
   - path: config/configmap.yaml
   - path: config/ksops.yaml
+  - path: config/users.yaml
