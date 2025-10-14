@@ -55,3 +55,11 @@ coreos-vm HOST="": (ignite HOST)
     qemu-kvm -m 2048 -cpu host -nographic -snapshot \
       -drive "if=virtio,file=${IMAGE}" ${IGNITION_DEVICE_ARG} \
       -nic user,model=virtio,hostfwd=tcp::2222-:22
+
+# https://fluxcd.io/flux/guides/mozilla-sops
+bootstrap-flux-secrets AGE_PRIVATE_KEY_FILE="":
+    kubectl create namespace flux-system
+    cat "{{ AGE_PRIVATE_KEY_FILE }}" | kubectl create secret generic sops-age --namespace=flux-system --from-file=age.agekey=/dev/stdin
+
+bootstrap-flux CLUSTER="" AGE_PRIVATE_KEY_FILE="": (bootstrap-flux-secrets AGE_PRIVATE_KEY_FILE)
+    flux bootstrap git --url=ssh://git@github.com/NoSpawnn/homelab.git --branch=master --private-key-file=./keys/key --path kubernetes/clusters/{{ CLUSTER }}
