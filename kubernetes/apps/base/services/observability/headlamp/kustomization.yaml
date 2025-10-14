@@ -6,3 +6,9 @@ namespace: kube-system
 resources:
   - repository.yaml
   - release.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  - name: headlamp-values
+    files:
+      - values.yaml
