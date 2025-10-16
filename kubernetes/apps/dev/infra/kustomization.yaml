@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: infra-dev
 
 resources:
+  - ../../base/infra/storage
   - namespace.yaml
   - authentik/
   - ../../base/infra/ingress
