@@ -6,3 +6,4 @@ namespace: infra-dev
 resources:
   - namespace.yaml
   - authentik/
+  - ../../base/infra/ingress
