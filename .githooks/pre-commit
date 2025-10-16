@@ -4,11 +4,11 @@
 
 set -e
 
-# Encrypt '# SECRET' commented values with sops before committing them (then decrypt them, "transparent" encryption!)
-SECRET_COMMENT="# SECRET"
-files=$(git diff --cached --name-only | grep -P '^(?!.*\.sops\.yaml$).*\.(yaml|bu)$' | xargs grep -l "$SECRET_COMMENT" || true)
-for f in "${files[@]}"; do
+# Encrypt with sops before committing (then decrypt, "transparent" encryption!)
+files=$(git diff --cached --name-only --diff-filter=ACM | grep -E 'secret\.(yaml|bu)$' || true)
+for f in ${files[@]}; do
     [ -f "$f" ] || continue
+    echo "Encrypting $f"
     sops -i -e "$f"
     git add "$f"
     sops -i -d "$f"

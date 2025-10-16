@@ -1,8 +1,12 @@
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# https://github.com/goauthentik/helm/blob/main/charts/authentik
+
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
+
 metadata:
   name: authentik
+
 spec:
   releaseName: authentik
   chart:
@@ -15,6 +19,20 @@ spec:
   install:
     remediation:
       retries: 3
+
   valuesFrom:
-    - kind: Secret
+    - kind: ConfigMap
       name: authentik-values
+      optional: true
+    - kind: Secret
+      name: authentik-values-secret
+
+  values:
+    authentik:
+      error_reporting:
+        enabled: true
+      postgresql:
+    redis:
+      enabled: true
+    postgresql:
+      enabled: true
