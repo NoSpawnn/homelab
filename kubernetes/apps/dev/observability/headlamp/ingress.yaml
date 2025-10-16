@@ -1,0 +1,14 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: headlamp
+spec:
+  values:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - host: headlamp.dev-cluster.local
+          paths:
+            - path: /
+              type: ImplementationSpecific

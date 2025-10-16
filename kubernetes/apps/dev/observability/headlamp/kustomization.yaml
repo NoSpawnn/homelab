@@ -3,3 +3,6 @@ kind: Kustomization
 
 resources:
   - ../../../base/observability/headlamp
+
+patches:
+  - path: ingress.yaml
