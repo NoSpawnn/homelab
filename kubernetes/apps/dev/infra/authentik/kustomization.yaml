@@ -15,6 +15,6 @@ configMapGenerator:
       - values.yaml=values.yaml
 
 secretGenerator:
-  - name: values-secret
+  - name: authentik-values-secret
     files:
       - values.yaml=values-secret.yaml
