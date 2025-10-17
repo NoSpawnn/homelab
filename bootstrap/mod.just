@@ -3,34 +3,18 @@ bootstrap_dir := justfile_dir() + '/bootstrap'
 _default:
     @just --list coreos
 
-ignite HOST="" BUTANE_DIR="" IGNITION_DIR="":
-    #!/usr/bin/env bash
+# Create ignition file through pyromaniac for a given host
+ignite HOST="":
+    podman run --rm --interactive --security-opt label=disable --publish 8000:8000 \
+        --volume ./pyromaniac:/spec:ro \
+        ghcr.io/salatfreak/pyromaniac:latest --pretty main.pyro {{ HOST }} > {{ bootstrap_dir }}/ignition/{{ HOST }}.ign
 
-    BOOTSTRAP_DIR="{{ bootstrap_dir }}"
-    BUTANE_DIR="$BOOTSTRAP_DIR/butane"
-    IGNITION_DIR="$BOOTSTRAP_DIR/ignition"
-    HOST="{{ HOST }}"
-    OUT_FILE="$IGNITION_DIR/hosts/$HOST.ign"
-    IN_FILE="/butane/hosts/$HOST.bu"
+# Validate ignition file
+validate-ignition FILE="":
+    podman run --pull=always --rm -i quay.io/coreos/ignition-validate:release - < "{{ FILE }}"
 
-    tag="butane"
-
-    # Yes, this is kind of ugly, but its the prettiest I can get it at 2am
-    podman build -f $BOOTSTRAP_DIR/butane.containerfile -t $tag
-    podman run --rm \
-      -v $BOOTSTRAP_DIR/butane:/butane:Z \
-      -v $BOOTSTRAP_DIR/ignition:/ignition:Z \
-      -e HOST=$HOST \
-      localhost/$tag \
-      /bin/bash -c 'for f in $(find /butane/common -name "*.bu"); do
-          ign_file=$(echo "$f" | sed -r "s|.*/(.*)\.bu|/ignition/common/\1.ign|");
-          butane --strict "$f" --files-dir /ignition --strict --pretty > "$ign_file";
-      done && butane --files-dir /ignition --strict --pretty /butane/hosts/$HOST.bu > /ignition/hosts/$HOST.ign'
-
-validate-ignition HOST="": (ignite HOST)
-    podman run --pull=always --rm -i quay.io/coreos/ignition-validate:release - < "{{ bootstrap_dir }}/ignition/hosts/{{ HOST }}.ign"
-
-get-iso PLATFORM="metal" FORMAT="iso" RELEASE="stable":
+# Download CoreOS for PLATFORM as FORMAT
+download PLATFORM="metal" FORMAT="iso" RELEASE="stable":
     #!/usr/bin/env bash
 
     PLATFORM="{{ PLATFORM }}"
@@ -57,14 +41,16 @@ get-iso PLATFORM="metal" FORMAT="iso" RELEASE="stable":
     # Remove the signature file
     rm fedora-coreos-*.sig || true
 
+# Generate yescrypt password hash
 mkpasswd:
     # See: https://docs.fedoraproject.org/en-US/fedora-coreos/authentication/#_using_password_authentication
     podman run -ti --rm quay.io/coreos/mkpasswd --method yescrypt
 
-vm HOST="": (ignite HOST) #(get-iso "qemu" "qcow2.xz" "stable")
+# Launch qemu VM for HOST with automatic ignition
+vm HOST="": (ignite HOST) #(download "qemu" "qcow2.xz" "stable")
     #!/usr/bin/env bash
 
-    IGNITION_CONFIG="{{ bootstrap_dir }}/ignition/hosts/{{ HOST }}.ign"
+    IGNITION_CONFIG="{{ bootstrap_dir }}/ignition/{{ HOST }}.ign"
     IMAGE="coreos.qcow2"
     IGNITION_DEVICE_ARG="-fw_cfg name=opt/com.coreos/config,file=${IGNITION_CONFIG}"
 

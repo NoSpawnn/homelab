@@ -1,0 +1,40 @@
+"Generate ignition file for a host with the given hostname including the given components"
+
+(
+hostname: str,
+keymap: str,
+butane_version: str,
+components: list[str] = []
+)
+---
+
+rendered_components = []
+for component in components:
+    render = getattr(_._.components, component)
+    rendered = render(butane_version=butane_version)
+    rendered_components.append(rendered)
+
+---
+
+variant: fcos
+version: `butane_version`
+
+{% if rendered_components|length > 0 %}
+ignition:
+  config:
+    merge:
+      `std.merge(*rendered_components)`
+{% endif %}
+
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: `hostname | raw`
+
+    - path: /etc/vconsole.conf
+      mode: 0644
+      contents:
+        inline: KEYMAP=`keymap | raw`

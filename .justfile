@@ -1,6 +1,8 @@
-# Kubernetes related actions
-mod k8s './kubernetes'
-mod coreos './bootstrap'
-
 _default:
     @just --list
+
+# Kubernetes cluster actions
+mod k8s './kubernetes'
+
+# CoreOS/bootstrap actio
+mod coreos './bootstrap'

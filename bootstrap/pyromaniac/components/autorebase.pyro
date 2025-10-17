@@ -1,9 +1,23 @@
+"Autorebase to eepy_OS"
+
+(
+butane_version: str
+)
+---
+
+image = "ghcr.io/nospawnn/eepy_os"
+tag = "latest"
+rebase_img = f"{image}:{tag}"
+flagfile_dir = "/etc/eepy-autorebase"
+
+---
+
 variant: fcos
-version: 1.6.0
+version: `butane_version`
 
 storage:
   directories:
-    - path: /etc/eepy-autorebase
+    - path: `flagfile_dir`
       mode: 0754
 
 systemd:
@@ -13,16 +27,16 @@ systemd:
       contents: |
         [Unit]
         Description=eepy_OS autorebase to unsigned OCI and reboot
-        ConditionPathExists=!/etc/eepy-autorebase/unverified
-        ConditionPathExists=!/etc/eepy-autorebase/signed
+        ConditionPathExists=!`flagfile_dir | raw`/unverified
+        ConditionPathExists=!`flagfile_dir | raw`/signed
         After=network-online.target
         Wants=network-online.target
 
         [Service]
         Type=oneshot
         StandardOutput=journal+console
-        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-unverified-registry:ghcr.io/nospawnn/eepy_os:latest
-        ExecStart=/usr/bin/touch /etc/eepy-autorebase/unverified
+        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-unverified-registry:`rebase_img | raw`
+        ExecStart=/usr/bin/touch `flagfile_dir | raw`/unverified
         ExecStart=/usr/bin/systemctl disable eepy-unsigned-autorebase.service
         ExecStart=/usr/bin/systemctl reboot
 
@@ -34,16 +48,16 @@ systemd:
       contents: |
         [Unit]
         Description=eepy_OS autorebase to signed OCI and reboot
-        ConditionPathExists=/etc/eepy-autorebase/unverified
-        ConditionPathExists=!/etc/eepy-autorebase/signed
+        ConditionPathExists=`flagfile_dir | raw`/unverified
+        ConditionPathExists=!`flagfile_dir | raw`/signed
         After=network-online.target
         Wants=network-online.target
 
         [Service]
         Type=oneshot
         StandardOutput=journal+console
-        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/nospawnn/eepy_os:latest
-        ExecStart=/usr/bin/touch /etc/eepy-autorebase/signed
+        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://`rebase_img | raw`
+        ExecStart=/usr/bin/touch `flagfile_dir | raw`/signed
         ExecStart=/usr/bin/systemctl disable eepy-signed-autorebase.service
         ExecStart=/usr/bin/systemctl reboot
 

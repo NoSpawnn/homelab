@@ -1,0 +1,18 @@
+""
+
+(
+butane_version: str
+)
+---
+
+timezone = "Europe/London"
+
+---
+
+variant: fcos
+version: `butane_version`
+
+storage:
+  links:
+    - path: /etc/localtime
+      target: ../usr/share/zoneinfo/`timezone | raw`

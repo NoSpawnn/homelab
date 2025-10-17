@@ -1,0 +1,18 @@
+""
+
+(
+    butane_version: str
+)
+---
+
+hostname = "twinkpad"
+keymap = "uk"
+components = [
+    "autorebase",
+    "timezone",
+    "users"
+]
+
+---
+
+`_(hostname, keymap=keymap, components=components, butane_version=butane_version)`

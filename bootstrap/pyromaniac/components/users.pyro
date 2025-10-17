@@ -1,5 +1,13 @@
+""
+
+(
+butane_version: str
+)
+---
+---
+
 variant: fcos
-version: 1.6.0
+version: `butane_version`
 
 passwd:
   users:
