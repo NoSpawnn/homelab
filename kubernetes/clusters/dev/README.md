@@ -1,4 +1,4 @@
-# Cluster/dev
+# clusters/dev
 
 - Development cluster, not tied to any specific hardware, but expected to run with K0s on bare metal
 
