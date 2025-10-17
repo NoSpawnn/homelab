@@ -11,9 +11,11 @@
 
 - [What is the simplest way to apply an updated Ignition file? - Fedora Discussion](https://discussion.fedoraproject.org/t/what-is-the-simplest-way-to-apply-an-updated-ignition-file/112078/5)
 - [barnabas/mediabarn](https://gitlab.com/barnix/mediabarn)
+- [onedr0p/home-ops](https://github.com/onedr0p/home-ops)
 
 ## Future plans/ideas
 
 - Boot nodes with iPXE to FCOS
     - [netboot.xyz](https://netboot.xyz/)
     - Auto-ignition? https://docs.fedoraproject.org/en-US/fedora-coreos/live-booting/#_booting_via_ipxe
+- Could be worth looking into [talos](https://github.com/siderolabs/talos)
