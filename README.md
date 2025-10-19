@@ -6,7 +6,7 @@
 
 - [NoSpawnn/eepy_os](https://github.com/NoSpawnn/eepy_os) (customized Fedora CoreOS based OS)
 - [Ignition](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/) (and [Butane](https://coreos.github.io/butane/)) for bootstrapping of hosts
-- [SOPS](https://github.com/getsops/sops) (using [age](https://github.com/FiloSottile/age) keys) for encryption of secrets
+- [Flux CD](https://fluxcd.io/) for applications in kubernetes
 
 ### Kubernetes
 
@@ -17,6 +17,7 @@
 
 - [OPNsense](https://opnsense.org/) firewall
 - [TrueNAS (Community Edition)](https://www.truenas.com/download-truenas-community-edition/)
+- [SOPS](https://github.com/getsops/sops) (using [age](https://github.com/FiloSottile/age) keys) for encryption of secrets in this repo
 
 ## Hardware
 
