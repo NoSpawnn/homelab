@@ -4,16 +4,19 @@ _default:
     @just --list coreos
 
 # Create ignition file through pyromaniac for a given host
+[group("Pyromaniac/Ignition")]
 ignite HOST="":
     podman run --rm --interactive --security-opt label=disable --publish 8000:8000 \
         --volume ./pyromaniac:/spec:ro \
         ghcr.io/salatfreak/pyromaniac:latest --pretty main.pyro {{ HOST }} > {{ bootstrap_dir }}/ignition/{{ HOST }}.ign
 
 # Validate ignition file
+[group("Pyromaniac/Ignition")]
 validate-ignition FILE="":
     podman run --pull=always --rm -i quay.io/coreos/ignition-validate:release - < "{{ FILE }}"
 
 # Download CoreOS for PLATFORM as FORMAT
+[group("Pyromaniac/Ignition")]
 download PLATFORM="metal" FORMAT="iso" RELEASE="stable":
     #!/usr/bin/env bash
 
@@ -41,11 +44,13 @@ download PLATFORM="metal" FORMAT="iso" RELEASE="stable":
     # Remove the signature file
     rm fedora-coreos-*.sig || true
 
+[group(CoreOS)]
 # Generate yescrypt password hash
 mkpasswd:
     # See: https://docs.fedoraproject.org/en-US/fedora-coreos/authentication/#_using_password_authentication
     podman run -ti --rm quay.io/coreos/mkpasswd --method yescrypt
 
+[group(CoreOS)]
 # Launch qemu VM for HOST with automatic ignition
 vm HOST="": (ignite HOST) #(download "qemu" "qcow2.xz" "stable")
     #!/usr/bin/env bash
