@@ -1,13 +1,13 @@
 # clusters/dev
 
-- Development cluster, not tied to any specific hardware, but expected to run with K0s on bare metal
+- Development cluster, run using [kind](https://kind.sigs.k8s.io/)
 
 ## Cluster specific stuff
 
 - Ingress is under *.dev-cluster.local
-    - Ingress is handled by [kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx/tree/main) exposed directly on port 80/443 on the host
+    - Handled by [kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx/tree/main) using [kubernetes-sigs/cloud-provider-kind](https://github.com/kubernetes-sigs/cloud-provider-kind)
     - Currently I manually add the entries to `/etc/hosts`, there's definitely a nicer way to do that...
-- [openebs](https://github.com/openebs/openebs/tree/develop) ([Helm chart](https://github.com/openebs/openebs/tree/develop/charts))
-    - K0s doesn't provide a storage class by default
-    - I disable the ZFS and mayastor engines
-    - Full values at [./openebs/release.yaml](./openebs/release.yaml)
+    - [openebs](https://github.com/openebs/openebs/tree/develop) ([Helm chart](https://github.com/openebs/openebs/tree/develop/charts))
+        - k0s doesn't provide a storage class by default
+        - ZFS and mayastor engines are disabled
+        - Full values at [./openebs/release.yaml](./openebs/release.yaml)
