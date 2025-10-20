@@ -41,12 +41,9 @@ flowchart
                     -->
                     SVC@{shape: diamond, label: Services}
                 end
+                NFS@{shape: disk} <--> SVC
             end
-            subgraph VLAN20
-                NFS@{shape: disk}
-                NFS <--> SVC
-            end
-            subgraph VLAN30
+                        subgraph VLAN30
                 PC["Personal Devices"]
             end
         end
