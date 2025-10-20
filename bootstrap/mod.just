@@ -44,14 +44,14 @@ download PLATFORM="metal" FORMAT="iso" RELEASE="stable":
     # Remove the signature file
     rm fedora-coreos-*.sig || true
 
-[group("CoreOS")]
 # Generate yescrypt password hash
+[group("CoreOS")]
 mkpasswd:
     # See: https://docs.fedoraproject.org/en-US/fedora-coreos/authentication/#_using_password_authentication
     podman run -ti --rm quay.io/coreos/mkpasswd --method yescrypt
 
-[group("CoreOS")]
 # Launch qemu VM for HOST with automatic ignition
+[group("CoreOS")]
 vm HOST="": (ignite HOST) #(download "qemu" "qcow2.xz" "stable")
     #!/usr/bin/env bash
 
