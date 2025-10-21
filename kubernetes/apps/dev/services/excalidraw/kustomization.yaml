@@ -1,6 +1,16 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 
-resources:
-  - ../../../base/services/excalidraw
-  - ingress.yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps-dev
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/apps/dev/services/excalidraw/app
+  prune: true
+  wait: true
+  timeout: 5m0s

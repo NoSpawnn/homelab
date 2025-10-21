@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: infra
+
+resources:
+  - namespace.yaml
+  - ../../../../base/infra/authentik
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: authentik-values
+    files:
+      - values.yaml=values.yaml
+
+secretGenerator:
+  - name: authentik-values-secret
+    files:
+      - values.yaml=values-secret.yaml

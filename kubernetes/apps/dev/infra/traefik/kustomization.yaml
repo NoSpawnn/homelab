@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./kubernetes/apps/dev/infra/authentik/app
+  path: ./kubernetes/apps/dev/infra/traefik/app
   prune: true
   wait: true
   timeout: 5m0s
