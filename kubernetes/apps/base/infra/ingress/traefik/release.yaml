@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx
+
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik
+spec:
+  releaseName: traefik-release
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-repo
+  interval: 50m
+  install:
+    remediation:
+      retries: 3
+
+  values:
+    ingressRoute:
+      dashboard:
+        enabled: true
+
