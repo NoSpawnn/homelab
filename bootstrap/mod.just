@@ -3,6 +3,10 @@ bootstrap_dir := justfile_dir() + '/bootstrap'
 _default:
     @just --list coreos
 
+[group("Pyromaniac/Ignition")]
+serve-ignition PORT="8080":
+    podman run -dit --name ignition-webserver -p 0.0.0.0:{{ PORT }}:80 -v ./ignition:/usr/local/apache2/htdocs/:Z httpd:alpine3.22
+
 # Create ignition file through pyromaniac for a given host
 [group("Pyromaniac/Ignition")]
 ignite HOST="":
