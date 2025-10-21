@@ -1,0 +1,10 @@
+namespaceOverride: headlamp
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  hosts:
+    - host: headlamp.dev-cluster.local
+      paths:
+        - path: /
+          type: ImplementationSpecific
