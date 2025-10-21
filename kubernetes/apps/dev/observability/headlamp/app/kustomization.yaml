@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: headlamp
 
 resources:
+  - namespace.yaml
   - ../../../../base/observability/headlamp
 
 generatorOptions:
