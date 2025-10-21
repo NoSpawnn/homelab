@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - openebs/
-  - apps.yaml
+  - ../../apps/dev/
 
 patches:
   - patch: |
