@@ -8,6 +8,6 @@ postgresql:
 server:
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: traefik
     hosts:
       - authentik.dev-cluster.local
