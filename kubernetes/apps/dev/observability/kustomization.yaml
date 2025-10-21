@@ -5,4 +5,4 @@ namespace: observability-dev
 
 resources:
   - namespace.yaml
-  - headlamp/
+  - headlamp/app.yaml
