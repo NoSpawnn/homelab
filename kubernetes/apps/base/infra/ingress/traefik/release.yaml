@@ -4,9 +4,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: traefik
+  name: traefik-release
 spec:
-  releaseName: traefik-release
+  releaseName: traefik
   chart:
     spec:
       chart: traefik
