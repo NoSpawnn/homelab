@@ -5,7 +5,7 @@ namespace: traefik
 
 resources:
   - namespace.yaml
-  - ../../../base/traefik
+  - ../../base
 
 generatorOptions:
   disableNameSuffixHash: true
