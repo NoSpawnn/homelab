@@ -8,4 +8,4 @@ spec:
   interval: 5m
   url: oci://ghcr.io/go-vikunja/helm-chart/vikunja
   ref:
-    tag: latest
+    tag: 1.1.0
