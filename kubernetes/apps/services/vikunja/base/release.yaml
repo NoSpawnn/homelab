@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 # https://github.com/go-vikunja/helm-chart/blob/main/values.yaml
 
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -7,13 +7,10 @@ metadata:
   name: vikunja
 
 spec:
+  chartRef:
+    kind: OCIRepository
+    name: vikunja-repo
   releaseName: vikunja
-  chart:
-    spec:
-      chart: vikunja
-      sourceRef:
-        kind: HelmRepository
-        name: vikunja-repo
   interval: 50m
   install:
     remediation:
