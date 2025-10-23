@@ -3,7 +3,11 @@ kind: Kustomization
 
 resources:
   - openebs/
-  - ../../apps/dev/
+  - ../../apps/authentik/dev
+  - ../../apps/network/traefik/dev
+  - ../../apps/observability/headlamp/dev
+  - ../../apps/services/excalidraw/dev
+  - ../../apps/services/ittools/dev
 
 patches:
   - patch: |

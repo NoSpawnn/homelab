@@ -1,0 +1,16 @@
+authentik:
+  error_reporting:
+    enabled: false
+
+redis:
+  enabled: true
+
+postgresql:
+  enabled: true
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - authentik.dev-cluster.local

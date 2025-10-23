@@ -1,7 +1,7 @@
 kubernetes_dir := justfile_dir() + "/kubernetes"
 
 _default:
-    @just --list k8s
+    @just --list kube
 
 [group("Bootstrap")]
 [no-cd]
