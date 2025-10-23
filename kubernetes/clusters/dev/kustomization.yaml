@@ -8,6 +8,7 @@ resources:
   - ../../apps/observability/headlamp/dev
   - ../../apps/services/excalidraw/dev
   - ../../apps/services/ittools/dev
+  - ../../apps/services/vikunja/dev
 
 patches:
   - patch: |
