@@ -17,13 +17,19 @@ passwd:
         - wheel
 
 storage:
+  files:
+    - path: /etc/hostname
+      contents:
+        inline: hv-1
+      overwrite: true
+
   links:
     - path: /etc/localtime
       target: ../usr/share/zoneinfo/Europe/London
 
   directories:
-  - path: /etc/autorebase
-    mode: 0754
+    - path: /etc/autorebase
+      mode: 0754
 
 systemd:
   units:
