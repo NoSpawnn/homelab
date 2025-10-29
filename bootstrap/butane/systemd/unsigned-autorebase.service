@@ -1,0 +1,17 @@
+[Unit]
+Description=eepy_OS autorebase to unsigned OCI and reboot
+ConditionPathExists=!/etc/autorebase/unverified
+ConditionPathExists=!/etc/autorebase/signed
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+StandardOutput=journal+console
+ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-unverified-registry:ghcr.io/nospawnn/eepy_os:latest
+ExecStart=/usr/bin/touch /etc/autorebase/unverified
+ExecStart=/usr/bin/systemctl disable unsigned-autorebase.service
+ExecStart=/usr/bin/systemctl reboot
+
+[Install]
+WantedBy=multi-user.target

@@ -9,7 +9,7 @@ passwd:
         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ
 
     - name: core
-      password_hash: $y$j9T$usXF3bfhUcsX3RxKTcBvy/$iB2v.ZD/4cyeNCgpT3sABDJ85c.NsCs1Aig4iVHyJO4
+      password_hash: $y$j9T$NpgpPrP9AVvdG6OQLLFRr1$o7TFnO5eT4uZj0/BdI9NrSulrZwvlbhhImH/LYdFS31
       shell: /bin/bash
       ssh_authorized_keys:
         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ
@@ -33,44 +33,10 @@ storage:
 
 systemd:
   units:
-    - name: eepy-unsigned-autorebase.service
+    - name: unsigned-autorebase.service
       enabled: true
-      contents: |
-        [Unit]
-        Description=eepy_OS autorebase to unsigned OCI and reboot
-        ConditionPathExists=!/etc/autorebase/unverified
-        ConditionPathExists=!/etc/autorebase/signed
-        After=network-online.target
-        Wants=network-online.target
+      contents_local: systemd/unsigned-autorebase.service
 
-        [Service]
-        Type=oneshot
-        StandardOutput=journal+console
-        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-unverified-registry:ghcr.io/nospawnn/eepy_os:latest
-        ExecStart=/usr/bin/touch /etc/autorebase/unverified
-        ExecStart=/usr/bin/systemctl disable eepy-unsigned-autorebase.service
-        ExecStart=/usr/bin/systemctl reboot
-
-        [Install]
-        WantedBy=multi-user.target
-
-    - name: eepy-signed-autorebase.service
+    - name: signed-autorebase.service
       enabled: true
-      contents: |
-        [Unit]
-        Description=eepy_OS autorebase to signed OCI and reboot
-        ConditionPathExists=/etc/autorebase/unverified
-        ConditionPathExists=!/etc/autorebase/signed
-        After=network-online.target
-        Wants=network-online.target
-
-        [Service]
-        Type=oneshot
-        StandardOutput=journal+console
-        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/nospawnn/eepy_os:latest
-        ExecStart=/usr/bin/touch /etc/autorebase/signed
-        ExecStart=/usr/bin/systemctl disable eepy-signed-autorebase.service
-        ExecStart=/usr/bin/systemctl reboot
-
-        [Install]
-        WantedBy=multi-user.target
+      contents_local: systemd/signed-autorebase.service

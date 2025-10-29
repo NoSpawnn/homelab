@@ -5,14 +5,14 @@ _default:
 
 [group("Ignition")]
 serve-ignition PORT="8080":
-    podman run -dit --name ignition-webserver -p 0.0.0.0:{{ PORT }}:80 -v ./ignition:/usr/local/apache2/htdocs/:Z httpd:alpine3.22
+    podman run -it --name ignition-webserver -p 0.0.0.0:{{ PORT }}:80 -v ./ignition:/usr/local/apache2/htdocs/:Z --replace httpd:alpine3.22
 
 # Create ignition file for a given host
 [group("Ignition")]
 ignite HOST="":
     podman run --interactive --rm --security-opt label=disable \
        --volume {{ bootstrap_dir }}:/bootstrap:Z --workdir /bootstrap \
-       quay.io/coreos/butane:release --pretty --strict butane/{{ HOST }}.bu > ignition/{{ HOST }}.ign
+       quay.io/coreos/butane:release --files-dir /bootstrap/butane --pretty --strict butane/{{ HOST }}.bu > ignition/{{ HOST }}.ign
 
 # Validate ignition file
 [group("Ignition")]
@@ -52,7 +52,7 @@ download PLATFORM="metal" FORMAT="iso" RELEASE="stable":
 [group("CoreOS")]
 mkpasswd:
     # See: https://docs.fedoraproject.org/en-US/fedora-coreos/authentication/#_using_password_authentication
-    podman run -ti --rm quay.io/coreos/mkpasswd --method yescrypt
+    podman run -ti --rm quay.io/coreos/mkpasswd --method=yescrypt
 
 # Launch qemu VM for HOST with automatic ignition
 [group("CoreOS")]
