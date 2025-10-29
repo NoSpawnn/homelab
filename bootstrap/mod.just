@@ -3,24 +3,24 @@ bootstrap_dir := justfile_dir() + '/bootstrap'
 _default:
     @just --list coreos
 
-[group("Pyromaniac/Ignition")]
+[group("Ignition")]
 serve-ignition PORT="8080":
     podman run -dit --name ignition-webserver -p 0.0.0.0:{{ PORT }}:80 -v ./ignition:/usr/local/apache2/htdocs/:Z httpd:alpine3.22
 
-# Create ignition file through pyromaniac for a given host
-[group("Pyromaniac/Ignition")]
+# Create ignition file for a given host
+[group("Ignition")]
 ignite HOST="":
-    podman run --rm --interactive --security-opt label=disable --publish 8000:8000 \
-        --volume ./pyromaniac:/spec:ro \
-        ghcr.io/salatfreak/pyromaniac:latest --pretty main.pyro {{ HOST }} > {{ bootstrap_dir }}/ignition/{{ HOST }}.ign
+    podman run --interactive --rm --security-opt label=disable \
+       --volume {{ bootstrap_dir }}:/bootstrap:Z --workdir /bootstrap \
+       quay.io/coreos/butane:release --pretty --strict butane/{{ HOST }}.bu > ignition/{{ HOST }}.ign
 
 # Validate ignition file
-[group("Pyromaniac/Ignition")]
+[group("Ignition")]
 validate-ignition FILE="":
     podman run --pull=always --rm -i quay.io/coreos/ignition-validate:release - < "{{ FILE }}"
 
 # Download CoreOS for PLATFORM as FORMAT
-[group("Pyromaniac/Ignition")]
+[group("CoreOS")]
 download PLATFORM="metal" FORMAT="iso" RELEASE="stable":
     #!/usr/bin/env bash
 
