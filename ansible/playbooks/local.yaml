@@ -3,6 +3,6 @@
   connection: local
   tasks:
     - name: Include other services
-      include_role:
+      ansible.builtin.include_role:
         name: "{{ item }}"
       loop: "{{ services }}"
