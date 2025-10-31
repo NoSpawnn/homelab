@@ -52,33 +52,17 @@
         mode: "0644"
       when: not kube_yaml_j2.stat.exists
 
-- name: Template and copy app files
+- name: Copy app files
+  ansible.builtin.copy:
+    src: "{{ quadlet_src_dir }}/{{ filename }}"
+    dest: "{{ quadlet_app_dest_dir }}/{{ filename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ quadlet_app_files }}"
+  loop_control:
+    loop_var: filename
+    label: "{{ filename }}"
   when: quadlet_app_files is defined and quadlet_app_files | length > 0
   notify:
     - Restart {{ quadlet_app_name }}
-  block:
-    - name: Template and copy {{ filename }}
-      ansible.builtin.template:
-        src: "{{ quadlet_src_dir }}/{{ filename }}"
-        dest: "{{ quadlet_app_dest_dir }}/{{ filename | regex_replace('\\.j2$', '') }}"
-        owner: root
-        group: root
-        mode: "0644"
-      when: (filename.split('.') | last) == 'j2'
-      loop: "{{ quadlet_app_files }}"
-      loop_control:
-        loop_var: filename
-        label: "{{ filename }}"
-
-    - name: Copy {{ filename }}
-      ansible.builtin.copy:
-        src: "{{ quadlet_src_dir }}/{{ filename }}"
-        dest: "{{ quadlet_app_dest_dir }}/{{ filename }}"
-        owner: root
-        group: root
-        mode: "0644"
-      when: (filename.split('.') | last) != 'j2'
-      loop: "{{ quadlet_app_files }}"
-      loop_control:
-        loop_var: filename
-        label: "{{ filename }}"
