@@ -9,24 +9,32 @@
       ansible.builtin.file:
         dest: /var/lib/gitops
         state: directory
+        owner: root
+        group: root
+        mode: "0644"
 
 - name: Pull git repo
   ansible.builtin.git:
     repo: https://github.com/NoSpawnn/homelab.git
     dest: /var/lib/gitops
     version: master
-    update: yes
-    force: yes
+    update: true
 
 - name: Copy systemd unit
   ansible.builtin.copy:
     src: git-sync.service
     dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Copy systemd timer
   ansible.builtin.copy:
     src: git-sync@.timer
     dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Populate .vault_pass
   ansible.builtin.copy:
