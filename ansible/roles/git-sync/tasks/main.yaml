@@ -2,12 +2,12 @@
   block:
     - name: Clear directory
       ansible.builtin.file:
-        dest: /var/lib/gitops
+        dest: "{{ gitops_dir }}"
         state: absent
 
     - name: Recreate directory
       ansible.builtin.file:
-        dest: /var/lib/gitops
+        dest: "{{ gitops_dir }}"
         state: directory
         owner: root
         group: root
@@ -15,30 +15,30 @@
 
 - name: Pull git repo
   ansible.builtin.git:
-    repo: https://github.com/NoSpawnn/homelab.git
-    dest: /var/lib/gitops
-    version: master
+    repo: "{{ gitops_repo }}"
+    dest: "{{ gitops_dir }}"
+    version: "{{ gitops_repo_rev }}"
     update: true
 
 - name: Copy systemd unit
-  ansible.builtin.copy:
-    src: git-sync.service
-    dest: /etc/systemd/system/
+  ansible.builtin.template:
+    src: git-sync.service.j2
+    dest: /etc/systemd/system/git-sync.service
     owner: root
     group: root
     mode: "0644"
 
 - name: Copy systemd timer
-  ansible.builtin.copy:
-    src: git-sync@.timer
-    dest: /etc/systemd/system/
+  ansible.builtin.template:
+    src: git-sync@.timer.j2
+    dest: /etc/systemd/system/git-sync@.timer
     owner: root
     group: root
     mode: "0644"
 
 - name: Populate .vault_pass
   ansible.builtin.copy:
-    dest: /var/lib/gitops/.vault_pass
+    dest: "{{ gitops_dir }}/.vault_pass"
     content: "{{ vault_password }}"
     mode: "0600"
 

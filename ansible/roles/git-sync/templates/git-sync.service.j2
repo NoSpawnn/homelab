@@ -1,0 +1,15 @@
+[Unit]
+Description=GitOps Sync
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory={{ gitops_dir }}
+ExecStartPre=/usr/bin/git fetch --all
+ExecStartPre=/usr/bin/git reset --hard origin/{{ gitops_repo_rev }}
+ExecStart=/usr/bin/ansible-playbook \
+            --vault-pass-file .vault_pass \
+            --inventory-file ansible/inventory.yaml \
+            --limit %l \
+            ansible/playbooks/local.yaml

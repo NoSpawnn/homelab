@@ -1,0 +1,3 @@
+gitops_dir: /var/lib/gitops
+gitops_repo: https://github.com/NoSpawnn/homelab.git
+gitops_repo_rev: master
