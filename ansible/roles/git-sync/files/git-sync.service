@@ -5,9 +5,10 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStartPre=/usr/bin/git -C /var/lib/gitops pull
+WorkingDirectory=/var/lib/gitops
+ExecStartPre=/usr/bin/git pull
 ExecStart=/usr/bin/ansible-playbook \
-  --vault-pass-file /var/lib/gitops/.vault_pass \
-  --inventory-file /var/lib/gitops/ansible/inventory.yaml \
+  --vault-pass-file .vault_pass \
+  --inventory-file ansible/inventory.yaml \
   --limit %l \
-  /var/lib/gitops/ansible/playbooks/local.yaml
+  ansible/playbooks/local.yaml
