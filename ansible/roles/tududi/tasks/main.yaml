@@ -7,3 +7,5 @@
 
     quadlet_src_dir: "{{ apps_src_dir }}/services/tududi"
     quadlet_app_name: tududi
+
+    session_secret: "{{ tududi_session_secret }}"

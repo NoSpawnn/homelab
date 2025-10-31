@@ -18,3 +18,9 @@ caddy_cloudflare_token: "{{ vault_caddy_cloudflare_token }}"
 
 vikunja_database_password: "{{ vault_vikunja_database_password }}"
 vikunja_jwtsecret: "{{ vault_vikunja_jwtsecret }}"
+
+#
+# Tududi
+#
+
+tududi_session_secret: "{{ vault_tududi_session_secret }}"

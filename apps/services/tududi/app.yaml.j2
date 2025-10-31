@@ -35,9 +35,9 @@ spec:
         - name: TUDUDI_USER_EMAIL
           value: me@nospawnn.com
         - name: TUDUDI_USER_PASSWORD
-          value: password
+          value: password # this is just an initial password so idc about vaulting it
         - name: TUDUDI_SESSION_SECRET
-          value: iNMjbTaEIgjkNhsTx5/7OTrBx/LF8tP2MObE3vnZscsP
+          value: "{{ session_secret }}"
         - name: TUDUDI_ALLOWED_ORIGINS
           value: https://tududi.nospawnn.com
         - name: TUDUDI_UPLOAD_PATH
