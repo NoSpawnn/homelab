@@ -66,3 +66,18 @@
   when: quadlet_app_files is defined and quadlet_app_files | length > 0
   notify:
     - Restart {{ quadlet_app_name }}
+
+- name: Template app files
+  ansible.builtin.template:
+    src: "{{ quadlet_src_dir }}/{{ filename }}"
+    dest: "{{ quadlet_app_dest_dir }}/{{ filename | regex_replace('\\.j2$', '') }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ quadlet_app_templates }}"
+  loop_control:
+    loop_var: filename
+    label: "{{ filename }}"
+  when: quadlet_app_templates is defined and quadlet_app_templates | length > 0
+  notify:
+    - Restart {{ quadlet_app_name }}
