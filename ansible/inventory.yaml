@@ -1,0 +1,9 @@
+all:
+  children:
+    serbers:
+
+serbers:
+  hosts:
+    hv-1:
+      ansible_host: hv-1.home.nospawnn.com
+      ansible_user: root

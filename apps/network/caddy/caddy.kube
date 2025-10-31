@@ -1,0 +1,3 @@
+[Kube]
+Yaml=/srv/nospawnn-com/caddy/app.yaml
+SetWorkingDirectory=yaml

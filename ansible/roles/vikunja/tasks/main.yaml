@@ -1,0 +1,6 @@
+- name: Deploy vikunja quadlet
+  ansible.builtin.include_role:
+    name: quadlet
+  vars:
+    quadlet_app_src_dir: "../../apps/services/vikunja"
+    quadlet_app_name: vikunja

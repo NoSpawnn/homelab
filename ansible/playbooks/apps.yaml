@@ -1,0 +1,6 @@
+- name: Deploy podman quadlet apps
+  hosts: all
+  become: true
+  roles:
+    - caddy
+    - vikunja

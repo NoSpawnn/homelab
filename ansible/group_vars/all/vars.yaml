@@ -1,0 +1,18 @@
+#
+# Common
+#
+
+project: nospawnn-com
+
+#
+# Caddy
+#
+
+
+
+#
+# Vikunja
+#
+
+vikunja_database_password: "{{ vault_vikunja_database_password }}"
+vikunja_jwtsecret: "{{ vault_vikunja_jwtsecret }}"
