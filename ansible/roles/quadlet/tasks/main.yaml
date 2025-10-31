@@ -46,8 +46,8 @@
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ files }}"
-  when: files is defined and files | length > 0
+  loop: "{{ quadlet_app_files }}"
+  when: quadlet_app_files is defined and quadlet_app_files | length > 0
 
 - name: Reload systemd
   ansible.builtin.systemd:

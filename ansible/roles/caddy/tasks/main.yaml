@@ -5,5 +5,5 @@
     quadlet_app_src_dir: "../../apps/network/caddy"
     quadlet_app_name: caddy
     quadlet_enabled: true
-    files:
+    quadlet_app_files:
       - Caddyfile
