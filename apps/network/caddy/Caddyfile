@@ -1,3 +1,7 @@
 http://vikunja.nospawnn.com {
     reverse_proxy vikunja:3456
 }
+
+http://homepage.nospawnn.com {
+    reverse_proxy glance:8080
+}

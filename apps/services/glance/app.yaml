@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: glance
+spec:
+  containers:
+    - image: docker.io/glanceapp/glance:latest
+      name: glance
+      volumeMounts:
+        - mountPath: /app/config:Z
+          name: config
+        # - mountPath: /app/assets:Z
+        #   name: assets
+        - mountPath: /etc/localtime:Z
+          name: localtime
+          readOnly: true
+  volumes:
+    - hostPath:
+        path: ./config
+      name: config
+    # - hostPath:
+    #     path: ./assets
+    #   name: assets
+    - hostPath:
+        path: /etc/localtime
+      name: localtime

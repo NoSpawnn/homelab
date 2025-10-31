@@ -1,0 +1,12 @@
+- name: Deploy caddy quadlet
+  ansible.builtin.include_role:
+    name: quadlet
+  vars:
+    quadlet_state: present
+    quadlet_enabled: true
+
+    quadlet_app_src_dir: "../../apps/services/glance"
+    quadlet_app_name: glance
+    quadlet_app_files:
+      - config/
+      # - assets/

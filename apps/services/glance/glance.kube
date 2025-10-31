@@ -1,0 +1,3 @@
+[Kube]
+Yaml=/srv/nospawnn-com/glance/app.yaml
+SetWorkingDirectory=yaml
