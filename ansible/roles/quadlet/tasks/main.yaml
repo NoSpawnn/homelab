@@ -1,7 +1,7 @@
-- name: Install quadlet ({{ quadlet_app_name }})
+- name: Install {{ quadlet_app_name }}
   ansible.builtin.include_tasks: install.yaml
   when: quadlet_state == "present"
 
-- name: Remove quadlet ({{ quadlet_app_name }})
+- name: Remove {{ quadlet_app_name }}
   ansible.builtin.include_tasks: remove.yaml
   when: quadlet_state == "absent"
