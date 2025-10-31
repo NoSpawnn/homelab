@@ -3,6 +3,14 @@
     dest: /var/lib/gitops
     state: directory
 
+- name: Pull git repo
+  ansible.builtin.git:
+    repo: https://github.com/NoSpawnn/homelab.git
+    dest: /var/lib/gitops
+    version: master
+    update: yes
+    force: yes
+
 - name: Copy systemd unit
   ansible.builtin.copy:
     src: git-sync.service
