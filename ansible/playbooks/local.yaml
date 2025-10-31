@@ -2,7 +2,7 @@
   hosts: all
   connection: local
   tasks:
-    - name: "{{ item }}"
+    - name: Include other services
       include_role:
         name: "{{ item }}"
       loop: "{{ services }}"
