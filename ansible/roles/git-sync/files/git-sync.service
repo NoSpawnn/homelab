@@ -10,5 +10,4 @@ ExecStart=/usr/bin/ansible-playbook \
   --vault-pass-file /var/lib/gitops/.vault_pass \
   --inventory-file /var/lib/gitops/ansible/inventory.yaml \
   --limit %l \
-  --checkout master \
   /var/lib/gitops/ansible/playbooks/local.yaml
