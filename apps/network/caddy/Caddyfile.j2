@@ -14,4 +14,9 @@
     handle @glance {
         reverse_proxy glance:8080
     }
+
+    @tududi host tududi.nospawnn.com
+    handle @tududi {
+        reverse_proxy tududi:3002
+    }
 }
