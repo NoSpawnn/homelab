@@ -8,6 +8,9 @@
 - [Ignition](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/) (and [Butane](https://coreos.github.io/butane/)) for bootstrapping of hosts
 - [Ansible](https://docs.ansible.com/ansible/latest/index.html) and [Podman Quadlets](https://docs.podman.io/en/latest/markdown/podman-quadlet.1.html) for deploying applications
 
+- I've rolled-my-own very basic gitops here using ansible and systemd services
+    - [git-sync.service](ansible/roles/git-sync/files/git-sync.service) pulls from a git repo and runs an ansible playbook (initiaed by [git-sync.timer](ansible/roles/git-sync/files/git-sync@.timer))
+
 ### Other stuff
 
 - [OPNsense](https://opnsense.org/) firewall
