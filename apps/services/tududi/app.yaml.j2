@@ -1,0 +1,64 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tududi-db-pvc
+  labels:
+    app: tududi
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tududi-uploads-pvc
+  labels:
+    app: tududi
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tududi
+spec:
+  containers:
+    - env:
+        - name: TUDUDI_USER_EMAIL
+          value: me@nospawnn.com
+        - name: TUDUDI_USER_PASSWORD
+          value: password
+        - name: TUDUDI_SESSION_SECRET
+          value: iNMjbTaEIgjkNhsTx5/7OTrBx/LF8tP2MObE3vnZscsP
+        - name: TUDUDI_ALLOWED_ORIGINS
+          value: https://tududi.nospawnn.com
+        - name: TUDUDI_UPLOAD_PATH
+          value: '"/app/backend/uploads"'
+        - name: PUID
+          value: "1001"
+        - name: PGID
+          value: "1001"
+      image: docker.io/chrisvel/tududi:0.85
+      name: tududi
+      ports:
+        - containerPort: 3002
+      volumeMounts:
+        - mountPath: /app/backend/db
+          name: db
+        - mounthPath: /app/backend/uploads
+          name: uploads
+  volumes:
+    - name: db
+      persistentVolumeClaim:
+        claimName: tududi-db-pvc
+    - name: uploads
+      persistentVolumeClaim:
+        claimName: tududi-uploads-pvc

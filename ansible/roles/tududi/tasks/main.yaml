@@ -1,0 +1,9 @@
+- name: Deploy tududi quadlet
+  ansible.builtin.include_role:
+    name: quadlet
+  vars:
+    quadlet_state: present
+    quadlet_enabled: true
+
+    quadlet_src_dir: "{{ apps_src_dir }}/services/tududi"
+    quadlet_app_name: tududi

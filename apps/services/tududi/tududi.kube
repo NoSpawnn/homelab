@@ -1,0 +1,3 @@
+[Kube]
+Yaml=/srv/nospawnn-com/tududi/app.yaml
+SetWorkingDirectory=yaml
