@@ -1,7 +1,14 @@
-- name: Ensure gitops dir
-  ansible.builtin.file:
-    dest: /var/lib/gitops
-    state: directory
+- name: Ensure gitops dir is empty
+  block:
+    - name: Clear directory
+      ansible.builtin.file:
+        dest: /var/lib/gitops
+        state: absent
+
+    - name: Recreate directory
+      ansible.builtin.file:
+        dest: /var/lib/gitops
+        state: directory
 
 - name: Pull git repo
   ansible.builtin.git:
