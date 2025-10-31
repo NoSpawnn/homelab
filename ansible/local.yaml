@@ -6,3 +6,5 @@
       ansible.builtin.include_role:
         name: "{{ item }}"
       loop: "{{ services }}"
+      loop_control:
+        label: "{{ item }}"
