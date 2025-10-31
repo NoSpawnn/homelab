@@ -1,3 +1,0 @@
-http://vikunja.nospawnn.com {
-    reverse_proxy vikunja:3456
-}

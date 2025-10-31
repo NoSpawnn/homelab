@@ -1,9 +1,0 @@
-- name: Deploy caddy quadlet
-  ansible.builtin.include_role:
-    name: quadlet
-  vars:
-    quadlet_app_src_dir: "../../apps/network/caddy"
-    quadlet_app_name: caddy
-    quadlet_enabled: true
-    files:
-      - Caddyfile
