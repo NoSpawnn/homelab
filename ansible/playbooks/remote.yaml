@@ -1,12 +1,5 @@
-- name: Deploy podman quadlet apps
+- name: Initialise git-sync
   hosts: all
   become: true
   roles:
     - git-sync
-
-    # Network
-    - caddy
-
-    # Services
-    - glance
-    - vikunja
