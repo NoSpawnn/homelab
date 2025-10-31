@@ -2,10 +2,6 @@
   hosts: all
   connection: local
   tasks:
-    - name: Setup gitops syncing
-      include_role:
-        name: git-sync
-
     - name: "{{ item }}"
       include_role:
         name: "{{ item }}"
