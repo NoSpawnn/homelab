@@ -2,9 +2,8 @@
   hosts: all
   connection: local
   tasks:
-    - name: Include services
-      ansible.builtin.include_role:
-        name: "{{ item }}"
+    - name: Configure {{ item }}
+      block:
+        - include_role:
+            name: "{{ item }}"
       loop: "{{ services }}"
-      loop_control:
-        label: "{{ item }}"
