@@ -5,5 +5,5 @@
     quadlet_state: present
     quadlet_enabled: true
 
-    quadlet_src_dir: "{{ app_src_dir }}/services/vikunja"
+    quadlet_src_dir: "{{ apps_src_dir }}/services/vikunja"
     quadlet_app_name: vikunja
