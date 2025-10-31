@@ -2,7 +2,7 @@
   ansible.builtin.include_role:
     name: quadlet
   vars:
-    quadlet_state: absent
+    quadlet_state: present
     quadlet_enabled: true
 
     quadlet_app_src_dir: "../../apps/network/caddy"
