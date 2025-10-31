@@ -53,6 +53,9 @@
       when: not kube_yaml_j2.stat.exists
 
 - name: Template and copy app files
+  when: quadlet_app_files is defined and quadlet_app_files | length > 0
+  notify:
+    - Restart {{ quadlet_app_name }}
   block:
     - name: Template and copy {{ filename }}
       ansible.builtin.template:
@@ -62,6 +65,10 @@
         group: root
         mode: "0644"
       when: (filename.split('.') | last) == 'j2'
+      loop: "{{ quadlet_app_files }}"
+      loop_control:
+        loop_var: filename
+        label: "{{ filename }}"
 
     - name: Copy {{ filename }}
       ansible.builtin.copy:
@@ -71,11 +78,7 @@
         group: root
         mode: "0644"
       when: (filename.split('.') | last) != 'j2'
-
-  loop: "{{ quadlet_app_files }}"
-  loop_control:
-    loop_var: filename
-    label: "{{ filename }}"
-  when: quadlet_app_files is defined and quadlet_app_files | length > 0
-  notify:
-    - Restart {{ quadlet_app_name }}
+      loop: "{{ quadlet_app_files }}"
+      loop_control:
+        loop_var: filename
+        label: "{{ filename }}"
