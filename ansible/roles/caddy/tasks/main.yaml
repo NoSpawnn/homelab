@@ -8,5 +8,6 @@
     quadlet_src_dir: "{{ apps_src_dir }}/network/caddy"
     quadlet_app_name: caddy
     quadlet_app_templates:
-      Caddyfile.j2:
-        cloudflare_token: "{{ caddy_cloudflare_token }}"
+      - Caddyfile.j2
+
+    cloudflare_token: "{{ caddy_cloudflare_token }}"
