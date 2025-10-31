@@ -51,12 +51,15 @@
 
 - name: Copy app files ({{ quadlet_app_name }})
   ansible.builtin.copy:
-    src: "{{ quadlet_app_src_dir }}/{{ item }}"
-    dest: "{{ quadlet_app_dest_dir }}/{{ item }}"
+    src: "{{ quadlet_app_src_dir }}/{{ filename }}"
+    dest: "{{ quadlet_app_dest_dir }}/{{ filename }}"
     owner: root
     group: root
     mode: "0644"
   loop: "{{ quadlet_app_files }}"
+  loop_control:
+    loop_var: filename
+    label: "{{ filename }}"
   when: quadlet_app_files is defined and quadlet_app_files | length > 0
   notify:
     - Restart {{ quadlet_app_name }}
