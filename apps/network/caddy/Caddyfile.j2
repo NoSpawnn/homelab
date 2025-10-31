@@ -1,11 +1,17 @@
-{
-    acme_dns cloudflare {{ cloudflare_token }}
-}
+*.nospawnn.com {
+    tls {
+        dns cloudflare {{ cloudflare_token }}
+        propagatioin_delay 2m
+        resolvers 1.1.1.1
+    }
 
-vikunja.nospawnn.com {
-    reverse_proxy vikunja:3456
-}
+    @vikunja host vikunja.nospawnn.com
+    handle @vikunja {
+        reverse_proxy vikunja:3456
+    }
 
-homepage.nospawnn.com {
-    reverse_proxy glance:8080
+    @glance host homepage.nospawnn.com
+    handle @glance {
+        reverse_proxy glance:8080
+    }
 }
