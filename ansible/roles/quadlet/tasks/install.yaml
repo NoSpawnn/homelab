@@ -74,7 +74,8 @@
     owner: root
     group: root
     mode: "0644"
-  vars: "{{ tmpl.value }}"
+  vars:
+    <<: "{{ tmpl.value }}"
   loop: "{{ quadlet_app_templates | dict2items }}"
   loop_control:
     loop_var: tmpl
