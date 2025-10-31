@@ -5,7 +5,7 @@
     quadlet_state: present
     quadlet_enabled: true
 
-    quadlet_app_src_dir: "../../apps/services/glance"
+    quadlet_src_dir: "{{ app_src_dir }}/services/glance"
     quadlet_app_name: glance
     quadlet_app_files:
       - config/

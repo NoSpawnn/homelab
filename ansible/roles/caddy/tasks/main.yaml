@@ -5,7 +5,7 @@
     quadlet_state: present
     quadlet_enabled: true
 
-    quadlet_app_src_dir: "../../apps/network/caddy"
+    quadlet_src_dir: "{{ app_src_dir }}/network/caddy"
     quadlet_app_name: caddy
     quadlet_app_files:
       - Caddyfile

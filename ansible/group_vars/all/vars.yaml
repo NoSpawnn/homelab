@@ -4,6 +4,7 @@
 
 project: nospawnn-com
 vault_password: "{{ vault_vault_password }}"
+apps_src_dir: "{{ playbook_dir }}/../apps"
 
 #
 # Caddy

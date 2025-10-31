@@ -12,7 +12,7 @@
 
 - name: Copy quadlet file ({{ quadlet_app_name }})
   ansible.builtin.copy:
-    src: "{{ quadlet_app_src_dir }}/{{ quadlet_app_name }}.kube"
+    src: "{{ quadlet_src_dir }}/{{ quadlet_app_name }}.kube"
     dest: "{{ quadlet_dest }}"
     owner: root
     group: root
@@ -31,12 +31,12 @@
     - name: Check if template
       delegate_to: localhost
       ansible.builtin.stat:
-        path: "{{ quadlet_app_src_dir }}/app.yaml.j2"
+        path: "{{ quadlet_src_dir }}/app.yaml.j2"
       register: kube_yaml_j2
 
     - name: Template and copy application yaml
       ansible.builtin.template:
-        src: "{{ quadlet_app_src_dir }}/app.yaml.j2"
+        src: "{{ quadlet_src_dir }}/app.yaml.j2"
         dest: "{{ quadlet_app_dest_dir }}/app.yaml"
         owner: root
         group: root
@@ -45,7 +45,7 @@
 
     - name: Copy application yaml
       ansible.builtin.copy:
-        src: "{{ quadlet_app_src_dir }}/app.yaml"
+        src: "{{ quadlet_src_dir }}/app.yaml"
         dest: "{{ quadlet_app_dest_dir }}/app.yaml"
         owner: root
         group: root
@@ -54,7 +54,7 @@
 
 - name: Copy app files ({{ quadlet_app_name }})
   ansible.builtin.copy:
-    src: "{{ quadlet_app_src_dir }}/{{ filename }}"
+    src: "{{ quadlet_src_dir }}/{{ filename }}"
     dest: "{{ quadlet_app_dest_dir }}/{{ filename }}"
     owner: root
     group: root
