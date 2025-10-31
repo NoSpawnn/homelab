@@ -12,4 +12,4 @@ ExecStart=/usr/bin/ansible-pull \
   --inventory-file /var/lib/gitops/ansible/inventory.yaml \
   --limit %l \
   --checkout master \
-  /var/lib/ansible/playbooks/local.yaml
+  /var/lib/gitops/ansible/playbooks/local.yaml
