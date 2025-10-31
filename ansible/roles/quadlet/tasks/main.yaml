@@ -31,12 +31,18 @@
       ansible.builtin.template:
         src: "{{ quadlet_app_src_dir }}/app.yaml.j2"
         dest: "/srv/{{ project }}/{{ quadlet_app_name }}/app.yaml"
+        owner: root
+        group: root
+        mode: "0644"
       when: kube_yaml_j2.stat.exists
 
     - name: Copy application yaml
       ansible.builtin.copy:
         src: "{{ quadlet_app_src_dir }}/app.yaml"
         dest: "/srv/{{ project }}/{{ quadlet_app_name }}/app.yaml"
+        owner: root
+        group: root
+        mode: "0644"
       when: not kube_yaml_j2.stat.exists
 
 - name: Copy app files
