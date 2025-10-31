@@ -6,4 +6,4 @@
       block:
         - include_role:
             name: "{{ item }}"
-      loop: "{{ services }}"
+          loop: "{{ services }}"
