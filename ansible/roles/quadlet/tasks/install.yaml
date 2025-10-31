@@ -18,8 +18,11 @@
     group: root
     mode: "0644"
   notify:
-    - Reload systemd
     - Restart {{ quadlet_app_name }}
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
 
 - name: Copy application yaml ({{ quadlet_app_name }})
   notify:
