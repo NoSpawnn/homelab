@@ -1,4 +1,10 @@
 - name: Deploy podman quadlet apps to localhost
   hosts: all
   connection: local
-  roles: "{{ services | list }}"
+  tasks:
+    - name: Setup gitops syncing
+      include_role: git-sync
+
+    - name: "{{ item }}"
+      include_role: "{{ item }}"
+      loop: "{{ services }}"

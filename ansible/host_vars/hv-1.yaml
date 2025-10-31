@@ -1,6 +1,4 @@
 services:
-  - git-sync
-
   # Network
   - caddy
 
