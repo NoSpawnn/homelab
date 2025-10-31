@@ -1,3 +1,0 @@
-postgresql:
-  auth:
-    password: super_secret_password

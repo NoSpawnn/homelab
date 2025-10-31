@@ -1,8 +1,0 @@
-vikunja:
-  ingress:
-    main:
-      enabled: true
-      hosts:
-        - host: vikunja.dev-cluster.local
-          paths:
-            - path: /

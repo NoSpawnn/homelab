@@ -1,9 +1,0 @@
-creation_rules:
-  - path_regex: kubernetes/.+\.sops\.yaml
-    age:
-      - age1s3cqcks5genc6ru8chl0hkkd04zmxvczsvdxq99ekffe4gmvjpzsedk23c
-      - age1yg8cf7vv9nsfnc794ja3waxywm7ypjn5d4l3fv4seusjw79ueg0qyhe9f4
-
-stores:
-  yaml:
-    indent: 2
