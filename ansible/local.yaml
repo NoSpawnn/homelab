@@ -3,6 +3,6 @@
   connection: local
   tasks:
     - name: Configure {{ item }}
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: "{{ item }}"
       loop: "{{ services }}"
