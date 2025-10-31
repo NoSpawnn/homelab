@@ -1,4 +1,4 @@
 - name: Deploy podman quadlet apps to localhost
-  hosts: "{{ inventory_hostname }}"
+  hosts: all
   connection: local
   roles: "{{ services }}"
