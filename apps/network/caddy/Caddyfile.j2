@@ -1,0 +1,11 @@
+{
+    acme_dns cloudflare {{ cloudflare_token }}
+}
+
+vikunja.nospawnn.com {
+    reverse_proxy vikunja:3456
+}
+
+homepage.nospawnn.com {
+    reverse_proxy glance:8080
+}

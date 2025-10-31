@@ -9,3 +9,5 @@
     quadlet_app_name: caddy
     quadlet_app_files:
       - Caddyfile
+
+    cloudflare_token: "{{ vault_caddy_cloudflare_token }}"
