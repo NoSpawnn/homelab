@@ -4,7 +4,7 @@ metadata:
   name: caddy
 spec:
   containers:
-    - image: docker.io/caddy:2.10
+    - image: ghcr.io/caddybuilds/caddy-cloudflare:latest:2.10
       name: caddy
       ports:
         - containerPort: 80
