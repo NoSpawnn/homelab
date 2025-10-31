@@ -1,0 +1,35 @@
+- name: Ensure gitops dir
+  ansible.builtin.file:
+    dest: /var/lib/gitops
+    state: directory
+
+- name: Copy systemd unit
+  ansible.builtin.copy:
+    src: git-sync.service
+    dest: /etc/systemd/system/
+
+- name: Copy systemd timer
+  ansible.builtin.copy:
+    src: git-sync@.timer
+    dest: /etc/systemd/system/
+
+- name: Populate .vault_pass
+  ansible.builtin.copy:
+    dest: /var/lib/gitops/.vault_pass
+    content: "{{ vault_password }}"
+    mode: "0600"
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Initial sync
+  ansible.builtin.systemd:
+    name: git-sync.service
+    state: started
+
+- name: Enable sync timer
+  ansible.builtin.systemd:
+    name: git-sync@10.timer
+    state: started
+    enabled: true

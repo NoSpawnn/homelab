@@ -1,0 +1,9 @@
+services:
+  - git-sync
+
+  # Network
+  - caddy
+
+  # Services
+  - glance
+  - vikunja

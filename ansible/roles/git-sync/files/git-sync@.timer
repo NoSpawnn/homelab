@@ -1,0 +1,10 @@
+[Unit]
+Description=Run ansible-pull on git repo every %i minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=%imin
+Unit=git-sync.service
+
+[Install]
+WantedBy=timers.target

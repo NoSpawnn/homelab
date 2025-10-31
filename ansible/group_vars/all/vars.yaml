@@ -3,6 +3,7 @@
 #
 
 project: nospawnn-com
+vault_password: "{{ vault_vault_password }}"
 
 #
 # Caddy

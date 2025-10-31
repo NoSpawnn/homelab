@@ -2,6 +2,8 @@
   hosts: all
   become: true
   roles:
+    - git-sync
+
     # Network
     - caddy
 

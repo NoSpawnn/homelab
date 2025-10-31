@@ -1,0 +1,15 @@
+[Unit]
+Description=GitOps Sync (ansible-pull)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ansible-pull \
+  --url https://github.com/NoSpawnn/homelab.git \
+  --directory /var/lib/gitops \
+  --vault-pass-file /var/lib/gitops/.vault_pass \
+  --inventory-file /var/lib/gitops/ansible/inventory.yaml \
+  --limit %l \
+  --checkout master \
+  /var/lib/ansible/playbooks/local.yaml
