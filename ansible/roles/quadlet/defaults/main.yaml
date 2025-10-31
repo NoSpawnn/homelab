@@ -1,0 +1,4 @@
+quadlet_state: present
+
+quadlet_dest: "/etc/containers/systemd/{{ quadlet_app_name }}.kube"
+quadlet_app_dest_dir: "/srv/{{ project }}/{{ quadlet_app_name }}"

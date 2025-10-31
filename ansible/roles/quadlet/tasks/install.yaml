@@ -1,0 +1,62 @@
+- name: Ensure quadlet dir exists ({{ quadlet_app_name }})
+  ansible.builtin.file:
+    path: "{{ quadlet_dest | dirname }}"
+    state: directory
+    mode: "0755"
+
+- name: Ensure data dir exists ({{ quadlet_app_name }})
+  ansible.builtin.file:
+    path: "{{ quadlet_app_dest_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy quadlet file ({{ quadlet_app_name }})
+  ansible.builtin.copy:
+    src: "{{ quadlet_app_src_dir }}/{{ quadlet_app_name }}.kube"
+    dest: "{{ quadlet_dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart {{ quadlet_app_name }}
+
+- name: Copy application yaml ({{ quadlet_app_name }})
+  notify:
+    - Restart {{ quadlet_app_name }}
+  block:
+    - name: Check if template
+      delegate_to: localhost
+      ansible.builtin.stat:
+        path: "{{ quadlet_app_src_dir }}/app.yaml.j2"
+      register: kube_yaml_j2
+
+    - name: Template and copy application yaml
+      ansible.builtin.template:
+        src: "{{ quadlet_app_src_dir }}/app.yaml.j2"
+        dest: "{{ quadlet_app_dest_dir }}/app.yaml"
+        owner: root
+        group: root
+        mode: "0644"
+      when: kube_yaml_j2.stat.exists
+
+    - name: Copy application yaml
+      ansible.builtin.copy:
+        src: "{{ quadlet_app_src_dir }}/app.yaml"
+        dest: "{{ quadlet_app_dest_dir }}/app.yaml"
+        owner: root
+        group: root
+        mode: "0644"
+      when: not kube_yaml_j2.stat.exists
+
+- name: Copy app files ({{ quadlet_app_name }})
+  ansible.builtin.copy:
+    src: "{{ quadlet_app_src_dir }}/{{ item }}"
+    dest: "{{ quadlet_app_dest_dir }}/{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ quadlet_app_files }}"
+  when: quadlet_app_files is defined and quadlet_app_files | length > 0
+  notify:
+    - Restart {{ quadlet_app_name }}

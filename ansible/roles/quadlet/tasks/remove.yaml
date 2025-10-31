@@ -1,0 +1,18 @@
+- name: Stop and disable quadlet ({{ quadlet_app_name }})
+  ansible.builtin.systemd:
+    name: "{{ quadlet_app_name }}.service"
+    state: stopped
+    enabled: false
+  ignore_errors: true
+
+- name: Remove quadlet file ({{ quadlet_app_name }})
+  ansible.builtin.file:
+    path: "{{ quadlet_dest }}"
+    state: absent
+  notify:
+    - Reload systemd
+
+- name: Remove application files ({{ quadlet_app_name }})
+  ansible.builtin.file:
+    path: "{{ quadlet_app_dest_dir }}"
+    state: absent

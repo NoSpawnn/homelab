@@ -1,66 +1,7 @@
-- name: Ensure quadlet dir exists
-  ansible.builtin.file:
-    path: /etc/containers/systemd
-    state: directory
-    mode: "0755"
+- name: Install quadlet ({{ quadlet_app_name }})
+  ansible.builtin.include_tasks: install.yaml
+  when: quadlet_state == "present"
 
-- name: Ensure data dir exists
-  ansible.builtin.file:
-    path: /srv/{{ project }}/{{ quadlet_app_name }}
-    state: directory
-    mode: "0755"
-
-- name: Copy quadlet file
-  ansible.builtin.copy:
-    src: "{{ quadlet_app_src_dir }}/{{ quadlet_app_name }}.kube"
-    dest: /etc/containers/systemd/{{ quadlet_app_name }}.kube
-    owner: root
-    group: root
-    mode: "0644"
-  changed_when: true
-
-- name: Copy application yaml ({{ quadlet_app_name }})
-  block:
-    - name: Check if template
-      delegate_to: localhost
-      ansible.builtin.stat:
-        path: "{{ quadlet_app_src_dir }}/app.yaml.j2"
-      register: kube_yaml_j2
-
-    - name: Template and copy application yaml
-      ansible.builtin.template:
-        src: "{{ quadlet_app_src_dir }}/app.yaml.j2"
-        dest: "/srv/{{ project }}/{{ quadlet_app_name }}/app.yaml"
-        owner: root
-        group: root
-        mode: "0644"
-      when: kube_yaml_j2.stat.exists
-
-    - name: Copy application yaml
-      ansible.builtin.copy:
-        src: "{{ quadlet_app_src_dir }}/app.yaml"
-        dest: "/srv/{{ project }}/{{ quadlet_app_name }}/app.yaml"
-        owner: root
-        group: root
-        mode: "0644"
-      when: not kube_yaml_j2.stat.exists
-
-- name: Copy app files
-  ansible.builtin.copy:
-    src: "{{ quadlet_app_src_dir }}/{{ item }}"
-    dest: /srv/{{ project }}/{{ quadlet_app_name }}/{{ item }}
-    owner: root
-    group: root
-    mode: "0644"
-  loop: "{{ quadlet_app_files }}"
-  when: quadlet_app_files is defined and quadlet_app_files | length > 0
-
-- name: Reload systemd
-  ansible.builtin.systemd:
-    daemon_reload: true
-
-- name: Enable and start containers
-  ansible.builtin.systemd:
-    name: "{{ quadlet_app_name }}.service"
-    enabled: "{{ quadlet_enabled }}"
-    state: restarted
+- name: Remove quadlet ({{ quadlet_app_name }})
+  ansible.builtin.include_tasks: remove.yaml
+  when: quadlet_state == "absent"
