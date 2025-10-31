@@ -10,4 +10,4 @@
     quadlet_app_templates:
       - Caddyfile.j2
 
-    cloudflare_token: "{{ vault_caddy_cloudflare_token }}"
+    cloudflare_token: "{{ caddy_cloudflare_token }}"

@@ -10,7 +10,7 @@ apps_src_dir: "{{ playbook_dir }}/../apps"
 # Caddy
 #
 
-
+caddy_cloudflare_token: "{{ vault_caddy_cloudflare_token }}"
 
 #
 # Vikunja
